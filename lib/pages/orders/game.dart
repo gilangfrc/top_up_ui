@@ -50,7 +50,7 @@ class _GameState extends State<Game> {
                   Helper.showHelpDialog(
                     context,
                     'How to top up?',
-                    '1. Input your ID.\n2. Select the amount of diamonds you want to top up.\n3. Select the payment method.\n4. Click the "Top Up" button.',
+                    '1. Input your ID.\n2. Select the amount you want to top up.\n3. Select the payment method.\n4. Click the "Top Up" button.',
                     'OK',
                   );
                 },

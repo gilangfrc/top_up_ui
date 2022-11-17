@@ -43,6 +43,7 @@ class _HomeState extends State<Home> {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
           elevation: 0,
           // surfaceTintColor: Colors.transparent,
@@ -84,61 +85,58 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-        body: Container(
-          color: Theme.of(context).colorScheme.background,
-          child: Stack(
-            children: [
-              // list of categories
-              Container(
-                height: 50,
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: _categories.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: ChoiceChip(
-                        backgroundColor: Theme.of(context).colorScheme.surface,
-                        label: Text(
-                          _categories[index],
-                          style: CustomTextStyle.text(14, FontWeight.normal),
-                        ),
-                        selected: _selectedIndex == index,
-                        onSelected: (bool selected) {
-                          setState(() {
-                            _selectedIndex = selected ? index : null;
-                            if (_selectedIndex == 0) {
-                              _selectedCategory = [Games()];
-                            } else if (_selectedIndex == 1) {
-                              _selectedCategory = [Vouchers()];
-                            } else if (_selectedIndex == 2) {
-                              _selectedCategory = [Entertainment()];
-                            } else {
-                              _selectedCategory = null;
-                            }
-                          });
-                        },
+        body: Stack(
+          children: [
+            // list of categories
+            Container(
+              height: 50,
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: _categories.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: ChoiceChip(
+                      backgroundColor: Theme.of(context).colorScheme.surface,
+                      label: Text(
+                        _categories[index],
+                        style: CustomTextStyle.text(14, FontWeight.normal),
                       ),
-                    );
-                  },
+                      selected: _selectedIndex == index,
+                      onSelected: (bool selected) {
+                        setState(() {
+                          _selectedIndex = selected ? index : null;
+                          if (_selectedIndex == 0) {
+                            _selectedCategory = [Games()];
+                          } else if (_selectedIndex == 1) {
+                            _selectedCategory = [Vouchers()];
+                          } else if (_selectedIndex == 2) {
+                            _selectedCategory = [Entertainment()];
+                          } else {
+                            _selectedCategory = null;
+                          }
+                        });
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 60),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: _selectedCategory ??
+                      [
+                        Games(),
+                        Vouchers(),
+                        Entertainment(),
+                      ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 60),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: _selectedCategory ??
-                        [
-                          Games(),
-                          Vouchers(),
-                          Entertainment(),
-                        ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
